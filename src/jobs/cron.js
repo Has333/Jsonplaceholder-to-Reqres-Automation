@@ -1,11 +1,13 @@
 import cron from "node-cron";
-import { transformUsersDataFormatToReqres } from "../data-transformation/reqres-user.js";
+import { transformUserDataFormatToReqres } from "../data-transformation/reqres-user.js";
 import { JsonplaceholderUsers } from "../services/jsonplaceholder.service.js";
-import { ReqresUsers } from '../services/reqres.service.js';
+import { Reqres } from '../services/reqres.service.js';
 import { User } from "../models/userSchema.js";
 
 function JsonplaceholderToReqresAutomation() {
   cron.schedule("* * * * *", async () => {
+    function sleep(ms) { return new Promise((resolve) => setTimeout(resolve, ms))};
+
     const JsonplaceholderUsersData = JsonplaceholderUsers.listAll();
     JsonplaceholderUsersData.then(async (JsonplaceholderUsers) => {
 
@@ -15,10 +17,15 @@ function JsonplaceholderToReqresAutomation() {
         const options = { new: true, upsert: true };                 
 
        let newUser = await User.findOneAndUpdate(filter, update, options); 
-        console.log(`${newUser.email} created/updated`);
+        console.log(`${newUser.email} created/updated on database`);
       }
 
-      transformUsersDataFormatToReqres(JsonplaceholderUsers);
+      for (let JsonplaceholderUser of JsonplaceholderUsers) {
+        await sleep(5000);
+        let ReqresUser = transformUserDataFormatToReqres(JsonplaceholderUser);
+        console.log(ReqresUser)
+        Reqres.create(ReqresUser)
+      }
     });
   });
 }

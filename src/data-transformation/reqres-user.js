@@ -1,12 +1,10 @@
-function transformUsersDataFormatToReqres(users) {
-  for (let user of users) {
+function transformUserDataFormatToReqres(user) {
     const reqresUserModel = {
       name: user.name + " (" + user.username + ")",
       job: user.company.name,
     };
 
-    console.log(reqresUserModel);
-  }
+    return reqresUserModel
 }
 
-export { transformUsersDataFormatToReqres };
+export { transformUserDataFormatToReqres };
