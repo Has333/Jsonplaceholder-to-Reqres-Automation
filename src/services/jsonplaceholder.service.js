@@ -1,6 +1,6 @@
 import axios from 'axios';
 import "dotenv/config";
-const API = process.env.API_URL
+const API = process.env.RECEIVE_API_URL
 
 class JsonplaceholderUserService {
     async listAll(){
