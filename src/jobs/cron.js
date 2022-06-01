@@ -1,41 +1,36 @@
-import cron from "node-cron";
 import { transformUserDataFormatToReqres } from "../data-transformation/reqres-user.js";
 import { JsonplaceholderUsers } from "../services/jsonplaceholder.service.js";
-import { Reqres } from "../services/reqres.service.js";
-import { User } from "../models/userSchema.js";
+import { userDatabaseModel } from "../helpers/dbUserConfig.helper.js";
 import { ReportsHelper } from "../helpers/ErrorReports.helper.js";
+import { Reqres } from "../services/reqres.service.js";
+import { sleep } from "../helpers/Sleep.helper.js";
+import { User } from "../models/userSchema.js";
+import cron from "node-cron";
 
 function JsonplaceholderToReqresAutomation() {
-  cron.schedule("30 * * * * *", async () => {
-    function sleep(ms) { return new Promise((resolve) => setTimeout(resolve, ms))};
-
+  cron.schedule("* * 21 * * *", async () => {
     try {
       const JsonplaceholderUsersData = JsonplaceholderUsers.listAll();
       JsonplaceholderUsersData.then(async (JsonplaceholderUsers) => {
-  
         for (let JsonplaceholderUser of JsonplaceholderUsers) {
-          const filter = { email: JsonplaceholderUser.email };
-          const update = { id: JsonplaceholderUser.id, email: JsonplaceholderUser.email };
-          const options = { new: true, upsert: true };                 
-  
-         let newUser = await User.findOneAndUpdate(filter, update, options); 
-          console.log(`${newUser.email} created/updated on database`);
+          let userModelData = userDatabaseModel(JsonplaceholderUser);
+          await User.findOneAndUpdate(
+            userModelData.filter,
+            userModelData.update,
+            userModelData.options
+          );
         }
-  
+
         for (let JsonplaceholderUser of JsonplaceholderUsers) {
           await sleep(5000);
           let ReqresUser = transformUserDataFormatToReqres(JsonplaceholderUser);
-          console.log(ReqresUser);
           Reqres.create(ReqresUser);
         }
       });
-
     } catch (errorData) {
-     ReportsHelper.create(errorData);
-     console.log('Unable to run automation, error report generated')
-    };
+      ReportsHelper.create(errorData);
+    }
   });
 }
 
 export { JsonplaceholderToReqresAutomation };
-
