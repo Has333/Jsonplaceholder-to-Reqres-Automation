@@ -8,7 +8,7 @@ class ReqresUserService {
         name: user.name,
         job: user.job
     }).then(
-        res => console.log(res.data)
+        res => console.log(`\u001b[1;34m${res.data.name}`+"\u001b[0m created")
     )
   }
 }

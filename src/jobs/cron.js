@@ -20,7 +20,6 @@ function JsonplaceholderToReqresAutomation() {
             userModelData.options
           );
         }
-
         for (let JsonplaceholderUser of JsonplaceholderUsers) {
           await sleep(5000);
           let ReqresUser = transformUserDataFormatToReqres(JsonplaceholderUser);
@@ -29,6 +28,7 @@ function JsonplaceholderToReqresAutomation() {
       });
     } catch (errorData) {
       ReportsHelper.create(errorData);
+      console.log('\u001b[1;31mError: \u001b[0mreport generated')
     }
   });
 }
