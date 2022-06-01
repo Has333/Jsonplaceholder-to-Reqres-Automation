@@ -6,7 +6,7 @@ import { User } from "../models/userSchema.js";
 import { ReportsHelper } from "../helpers/ErrorReports.helper.js";
 
 function JsonplaceholderToReqresAutomation() {
-  cron.schedule("* * * * *", async () => {
+  cron.schedule("30 * * * * *", async () => {
     function sleep(ms) { return new Promise((resolve) => setTimeout(resolve, ms))};
 
     try {
