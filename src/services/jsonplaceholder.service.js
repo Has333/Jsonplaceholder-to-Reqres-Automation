@@ -1,10 +1,9 @@
 import axios from 'axios';
 import "dotenv/config";
-const API = process.env.RECEIVE_API_URL
 
 class JsonplaceholderUserService {
     async listAll(){
-     const JsonplaceholderDataResponse = await axios.get(API);
+     const JsonplaceholderDataResponse = await axios.get('https://jsonplaceholder.typicode.com/users');
      const JsonplaceholderUsers = JsonplaceholderDataResponse.data;
 
      return JsonplaceholderUsers

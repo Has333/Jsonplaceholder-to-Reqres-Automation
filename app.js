@@ -1,5 +1,5 @@
-import { DatabaseConnect } from './src/databases/database.js';
 import { JsonplaceholderToReqresAutomation } from './src/jobs/cron.js';
+import { DatabaseConnect } from './src/databases/database.js';
 import express from 'express';
 import "dotenv/config.js";
 
@@ -9,4 +9,6 @@ const server = express();
 DatabaseConnect();
 JsonplaceholderToReqresAutomation();
 
-server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+server.listen(PORT, () => {
+console.log(`Server running on port: ${PORT}`)
+});

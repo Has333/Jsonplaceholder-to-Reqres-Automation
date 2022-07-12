@@ -1,8 +1,0 @@
-{ error: "ReferenceError: nonExistentFunction is not defined", dataHora: "2022-6-1 T 15:26:30", stack: "ReferenceError: nonExistentFunction is not defined
-    at Task._execution (file:///C:/Users/0chro/Documents/Projects/Challenges/reqres-automation/src/jobs/cron.js:13:7)
-    at Task.execute (C:\Users\0chro\Documents\Projects\Challenges\reqres-automation\node_modules\node-cron\src\task.js:17:25)
-    at Scheduler.<anonymous> (C:\Users\0chro\Documents\Projects\Challenges\reqres-automation\node_modules\node-cron\src\scheduled-task.js:20:31)
-    at Scheduler.emit (node:events:526:28)
-    at Timeout.matchTime [as _onTimeout] (C:\Users\0chro\Documents\Projects\Challenges\reqres-automation\node_modules\node-cron\src\scheduler.js:30:26)
-    at listOnTimeout (node:internal/timers:559:17)
-    at processTimers (node:internal/timers:502:7)" }

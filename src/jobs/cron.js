@@ -11,6 +11,7 @@ function JsonplaceholderToReqresAutomation() {
   cron.schedule("* * 21 * * *", async () => {
     try {
       const JsonplaceholderUsersData = JsonplaceholderUsers.listAll();
+
       JsonplaceholderUsersData.then(async (JsonplaceholderUsers) => {
         for (let JsonplaceholderUser of JsonplaceholderUsers) {
           let userModelData = userDatabaseModel(JsonplaceholderUser);
@@ -20,6 +21,7 @@ function JsonplaceholderToReqresAutomation() {
             userModelData.options
           );
         }
+        
         for (let JsonplaceholderUser of JsonplaceholderUsers) {
           await sleep(5000);
           let ReqresUser = transformUserDataFormatToReqres(JsonplaceholderUser);
